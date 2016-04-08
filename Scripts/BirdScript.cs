@@ -10,9 +10,8 @@ public class BirdScript : MonoBehaviour
 	public bool isDead = false;		//has the player collided with a wall?
 
 	public GameObject audioInputObject;
-	public GameObject objectToSpawn;
 
-	public float threshold = 1.0f;
+	public float threshold = 0.0008f;
 
 	MicrophoneInput micIn;
 
@@ -25,9 +24,8 @@ public class BirdScript : MonoBehaviour
 		anim = GetComponent<Animator> ();
 		//set the bird moving forward
 		GetComponent<Rigidbody2D>().velocity = new Vector2 (forwardSpeed, 0);
-		if (audioInputObject == null)
-			audioInputObject = GameObject.Find("micMonitor");
-		micIn = (MicrophoneInput) audioInputObject.GetComponent("MicrophoneInput");
+//		audioInputObject = GameObject.Find("micMonitor");
+//		micIn = (MicrophoneInput) audioInputObject.GetComponent("MicrophoneInput");
 
 
 	}
@@ -38,11 +36,11 @@ public class BirdScript : MonoBehaviour
 		if (isDead)
 			return;
 		//look for input to trigger a "flap"
-		float noise = micIn.loudness;
-
-
-		if (noise > 0) {
-			
+		float noise = MicrophoneInput.loudness;
+		//Debug.LogError("Loudness" + micIn.loudness);
+		Debug.Log("Loudness" + noise);
+		if (noise > 0.0008) {
+			//Debug.LogError("Triggered a flap" + noise);
 			flap = true;
 		} 
 	}

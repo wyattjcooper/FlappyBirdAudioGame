@@ -10,6 +10,8 @@ public class GameControlScript : MonoBehaviour
 
 	int score = 0;								//the player's score
 	bool isGameOver = false;					//is the game over?
+	public float threshold = 0.0008f;
+
 
 
 	void Awake()
@@ -27,7 +29,7 @@ public class GameControlScript : MonoBehaviour
 	void Update()
 	{
 		//if the game is over and the player has pressed some input...
-		if (isGameOver && Input.anyKey) 
+		if (isGameOver && (Input.anyKey || MicrophoneInput.loudness > threshold) )
 		{
 			//...start a new game.
 			Application.LoadLevel(Application.loadedLevel);		
